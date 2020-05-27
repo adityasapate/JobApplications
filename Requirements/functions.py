@@ -28,6 +28,21 @@ def open_browser(web_driver):
     return driver
 
 #
+# Wtite into the class
+#
+def write_into_class(driver, id_name, text):
+    location = driver.find_element_by_id(id_name)
+    location.send_keys(text)
+
+#
+# Find element by class name
+#
+# def find_class(driver, class_name)
+#     try:
+#         driver.find_element_by_class
+
+
+#
 # Closes the driver
 #
 def close_browser(driver):
@@ -46,5 +61,8 @@ def export_csv(df, output_type, location):
     output = export_location + output_type + "/" +export_location + "/"
     export_csv = df.to_csv (output, index = None, header=True) #Don't forget to add '.csv' at the end of the path
 
+#
+# Main Window
+#
 if __name__== "__main__":
     main()
