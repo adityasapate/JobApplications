@@ -58,7 +58,17 @@ def find_class(driver, class_name):
 def find_classes(driver, class_name):
     return driver.find_elements_by_class_name(class_name)
 
+#
+#
+#
+def find_partial_text(driver, text):
+    return driver.find_element_by_partial_link_text(text)
 
+#
+# Finds the element by xpath
+#
+def find_x_path(driver, path):
+    return driver.find_element_by_xpath(path)
 
 #
 # Find element by class name
@@ -126,6 +136,20 @@ def import_csv(csv_file):
 def export_csv(df, output_type, location):
     output = export_location + output_type + "/" +export_location + "/"
     export_csv = df.to_csv (output, index = None, header=True) #Don't forget to add '.csv' at the end of the path
+
+#
+# Write to the file
+#
+def write_to_csv(csv_file, dict_data, csv_columns):
+    try:
+        with open(csv_file, 'w') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
+            writer.writeheader()
+            for data in dict_data:
+                writer.writerow(data)
+    except IOError:
+        print("I/O error")
+
 
 #
 # Main Window
