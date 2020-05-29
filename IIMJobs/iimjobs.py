@@ -43,7 +43,7 @@ hastag_class = 'list-inline'
 click_apply_id = 'job-apply-single'
 applyjobid = 'applyJob'
 
-output_file  = './../Output/IIMJOBS.csv'
+output_file  = './../Output/IIMJOBS'
 
 #
 # Gets data for the job opening
@@ -102,10 +102,10 @@ def get_details_of_opening(driver):
 
         print(element)
 
-
+    outfile = output_file + '.csv'
     dict_data.append({'Job Code': jobCode, 'Title': job_title,'Hashtag': hashtag,'Description': jd,'Last Login': last_login, 'Posted By': postedBy,'Position': position,'Posted In': postedIn,'Location': Location,'Views': views,'Applications': applications,'Recruiter Actions': recruiterAction})
 
-    functions.write_to_csv(output_file, dict_data, csv_columns)
+    functions.write_to_csv(outfile, dict_data, csv_columns)
 
     return 1
 
@@ -115,9 +115,9 @@ def get_details_of_opening(driver):
 def make_application(driver):
     try:
         functions.find_id(driver, click_apply_id).click()
-        functions.timeout(3)
+        functions.timeout(5)
         functions.find_id(driver, applyjobid).click()
-        functions.timeout(3)
+        functions.timeout(5)
     except:
         return
 
@@ -233,5 +233,5 @@ if __name__ == "__main__":
     now = datetime.now()
     dt_string = now.strftime("%d-%m-%Y %H-%M-%S")
 
-    final_output = output_file + ' iimjobs '+ dt_string
+    final_output = output_file + ' iimjobs '+ dt_string + '.csv'
     functions.write_to_csv(final_output, dict_data, csv_columns)
