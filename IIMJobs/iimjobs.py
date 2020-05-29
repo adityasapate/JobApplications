@@ -175,7 +175,7 @@ def apply_for_the_job(driver, iter):
                 except:
                     item = item - 1
 
-            if(iter == 0 and item >10 ):
+            if(item >10 ):
                 break
 
     return 0
