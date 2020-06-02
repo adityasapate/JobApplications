@@ -59,10 +59,17 @@ def find_classes(driver, class_name):
     return driver.find_elements_by_class_name(class_name)
 
 #
-#
+#Finds links based on partial texts
 #
 def find_partial_text(driver, text):
     return driver.find_element_by_partial_link_text(text)
+
+#
+#Finds links based on partial texts
+#
+def find_partial_texts(driver, text):
+    return driver.find_elements_by_partial_link_text(text)
+
 
 #
 # Finds the element by xpath

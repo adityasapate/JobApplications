@@ -186,7 +186,7 @@ def apply_for_the_job(driver, iter):
 def apply_filter(driver):
     functions.find_classes(driver, workex_filter_class)[1].click()
     dropdown_menu = functions.find_class(driver, workex_chooser_class)
-    functions.find_x_path(dropdown_menu, "//a[@rel='1']").click()
+    functions.find_x_path(dropdown_menu, "//a[@rel='2']").click()
     functions.find_class(driver, filter_button_class).click()
     functions.timeout(2)
 
