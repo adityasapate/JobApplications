@@ -8,6 +8,7 @@ from datetime import datetime
 
 # insert at 1, 0 is the script path (or '' in REPL)
 sys.path.insert(1, './../Requirements/')
+
 import functions
 
 # Global Variables
@@ -21,7 +22,7 @@ password = ''
 csv_columns =['Job Code', 'Title', 'Hashtag', 'Description', 'Last Login', 'Posted By', 'Position', 'Posted In', 'Location', 'Views', 'Applications', 'Recruiter Actions']
 dict_data = []
 
-iter_max = 2 #how deep do you want to go in the loop
+iter_max = 3 #how deep do you want to go in the loop
 
 login_placeholder_class = 'large-email'
 password_placeholder_class = 'large-password'
@@ -33,7 +34,7 @@ save_later_class = 'saved-job'
 job_title_class = 'col-lg-9new'
 link_class = 'mrmob5'
 job_description_class = 'job-description'
-apply_button_class = 'job-apply-single'
+apply_button_class = 'apply_button'
 job_details_class = 'mt5'
 filter_button_class = 'filterlist'
 workex_filter_class = 'selectBox-dropdown'
@@ -66,8 +67,10 @@ def get_details_of_opening(driver):
     recruiterAction = ''
 
     jd = functions.find_class(driver, job_description_class).text
+    # print('The job id is: ', jd)
 
     job_title = functions.find_class(driver, title_class).text
+    # print('The job title is: ', job_title)
 
     hashtag = functions.find_class(driver, hastag_class).text
 
@@ -77,30 +80,40 @@ def get_details_of_opening(driver):
             sections = element.text.split('\n')
             if(sections[0] == 'Last Login:'):
                 last_login = sections[1]
+                # print('Last Login: ',last_login)
             elif(sections[0] == 'Posted by'):
                 postedBy = sections[1]
+                # print('Posted by: ', postedBy)
                 position = sections[2]
+                # print('Position: ', position)
             elif(sections[0] == 'Posted in'):
                 postedIn = sections[1]
+                # print('Posted In: ', postedIn)
             elif(sections[0] == 'Job Code'):
                 jobCode = sections[1]
+                # print('Job Code: ', jobCode)
             elif(sections[0] == 'Location'):
                 Location = sections[1]
+                # print('Location: ', Location)
             elif(sections[0] == 'Posted On'):
                 postedOn = sections[1]
+                # print('Posted On', postedOn)
             elif(sections[0] == 'Views'):
                 views = sections[1]
+                # print('Views: ', views)
             elif(sections[0] == 'Applications'):
                 applications = sections[1]
+                # print('Applications: ', applications)
             elif(sections[0] == 'Recruiter Actions (what does this mean?)'):
                 recruiterAction = sections[1]
+                # print('Recruiter Actions (what does this mean?)', recruiterAction)
             else:
                 continue
 
         except:
             continue
 
-        print(element)
+        # print(element)
 
     outfile = output_file + '.csv'
     dict_data.append({'Job Code': jobCode, 'Title': job_title,'Hashtag': hashtag,'Description': jd,'Last Login': last_login, 'Posted By': postedBy,'Position': position,'Posted In': postedIn,'Location': Location,'Views': views,'Applications': applications,'Recruiter Actions': recruiterAction})
@@ -146,19 +159,27 @@ def apply_for_the_job(driver, iter):
                 item = item + 1
                 try:
                     print('Opening new job tab')
+                    
                     functions.open_in_new_tab(functions.find_class(element, link_class), driver)
 
                     functions.timeout(2)
 
-                    print('Going to new window')
-                    driver.switch_to_window(driver.window_handles[iter +1])
+                    print('The current window handle: ', driver.current_window_handle)
+                    print("Value of iterator is: ", iter)
+                    print('the value of item is:', item)
 
-                    functions.timeout(2)
+                    print('Going to new window')
+                    driver.switch_to.window(driver.window_handles[iter+1])
+                    print('The next window handle: ', driver.current_window_handle)
+
+                    
+                    # functions.timeout(2)
 
                     print('Getting details of the job')
                     get_details_of_opening(driver)
 
                     # Apply for the jobs
+                    print('Applying for job')
                     make_application(driver)
 
                     # Go into iteration
@@ -171,11 +192,11 @@ def apply_for_the_job(driver, iter):
                     functions.timeout(2)
 
                     print('going to prev window')
-                    driver.switch_to_window(driver.window_handles[iter])
+                    driver.switch_to.window(driver.window_handles[iter])
                 except:
                     item = item - 1
 
-            if(item >10 ):
+            if(item >10):
                 break
 
     return 0
