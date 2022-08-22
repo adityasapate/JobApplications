@@ -1,3 +1,4 @@
+from ast import main
 import time
 from random import randint
 import csv
