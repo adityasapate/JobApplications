@@ -1,3 +1,4 @@
+from ast import main
 import time
 from random import randint
 import csv
@@ -76,6 +77,12 @@ def find_partial_texts(driver, text):
 #
 def find_x_path(driver, path):
     return driver.find_element_by_xpath(path)
+
+# 
+# Finds the element by name
+# 
+def find_element_by_name(driver, name):
+    return driver.find_element_by_name(name)
 
 #
 # Find element by class name

@@ -22,9 +22,9 @@ login_placeholder_class = 'username'
 password_placeholder_class = 'password'
 
 
-element_class = 'discover-entity-card'
+element_class = 'discover-entity-type-card'
 partial_text = 'Connect'
-connect_button_class = 'artdeco-button--full'
+connect_button_class = 'artdeco-button--secondary'
 
 
 #
