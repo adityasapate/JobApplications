@@ -1,5 +1,4 @@
 import pandas
-# some_file.py
 import sys
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
@@ -14,8 +13,8 @@ import functions
 # Global Variables
 web_driver = "./../Requirements/chromedriver"
 website = 'https://www.iimjobs.com'
-login_details_location = './../../../Backup/login_details.csv'
 portal = 'IIMJOBS'
+login_details_location = './../../../Backup/login_details.csv'
 login_id = ''
 password = ''
 
@@ -39,10 +38,12 @@ job_details_class = 'mt5'
 filter_button_class = 'filterlist'
 workex_filter_class = 'selectBox-dropdown'
 workex_chooser_class = 'selectBox-dropdown-menu'
+location_chooser_class = 'divcheckboxlist'
 title_class = 'jdhding'
 hastag_class = 'list-inline'
 click_apply_id = 'job-apply-single'
 applyjobid = 'applyJob'
+location_input = 'Mumbai'
 
 output_file  = './../Output/IIMJOBS'
 
@@ -94,7 +95,7 @@ def get_details_of_opening(driver):
                 # print('Job Code: ', jobCode)
             elif(sections[0] == 'Location'):
                 Location = sections[1]
-                # print('Location: ', Location)
+                print('Location: ', Location)
             elif(sections[0] == 'Posted On'):
                 postedOn = sections[1]
                 # print('Posted On', postedOn)
@@ -202,12 +203,21 @@ def apply_for_the_job(driver, iter):
     return 0
 
 #
-# Applies the filter of work ex
+# Applies the filter of work ex 
 #
 def apply_filter(driver):
+
+    # This will select the number of days of workex that the candidate has 
     functions.find_classes(driver, workex_filter_class)[1].click()
     dropdown_menu = functions.find_class(driver, workex_chooser_class)
     functions.find_x_path(dropdown_menu, "//a[@rel='2']").click()
+
+    # This will select the location suitable for the candidate
+    functions.find_classes(driver, workex_filter_class)[2].click()
+    
+    functions.find_x_path(driver,'/html/body/div[3]/div[3]/div[9]/div[2]/div[2]/form/div[1]/div[3]/div/div[2]/div[49]/div/input').click()
+    functions.find_x_path(driver,'/html/body/div[3]/div[3]/div[8]/div[2]/div[2]/form/div[1]/div[3]/div/div[2]/div[53]/div/input').click()
+    
     functions.find_class(driver, filter_button_class).click()
     functions.timeout(2)
 
