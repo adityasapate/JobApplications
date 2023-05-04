@@ -25,9 +25,9 @@ def timeout(time_period):
 # Opens the browser
 #
 def open_browser(web_driver):
-    options = webdriver.ChromeOptions()
+    options = webdriver.EdgeOptions()
     options.add_argument("--incognito")
-    driver = webdriver.Chrome(web_driver, options=options)
+    driver = webdriver.Edge(web_driver, options=options)
     return driver
 
 #
